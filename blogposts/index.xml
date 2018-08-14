@@ -6,10 +6,21 @@
     <description>Recent content in Blogposts on EMUlator</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Jul 2018 16:41:42 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 06 Aug 2018 07:40:56 +0100</lastBuildDate>
     
 	<atom:link href="https://pfitzseb.github.io/blogposts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GSoC 2018 Summary</title>
+      <link>https://pfitzseb.github.io/blogposts/gsoc-final-2018/</link>
+      <pubDate>Mon, 06 Aug 2018 07:40:56 +0100</pubDate>
+      
+      <guid>https://pfitzseb.github.io/blogposts/gsoc-final-2018/</guid>
+      <description>The aims of this year&amp;rsquo;s GSoC project were to a) get the Juno IDE running on Julia v1.0 and b) integrate performance linting into the Juno UI.
+Most of the work went into updating the various Julia packages in the Juno stack, first for Julia 0.7 and then for Julia 1.0. There&amp;rsquo;s also a unfinished PR against @MikeInnes&amp;rsquo; excellent package Traceur.jl, which provides performance linting in Julia.
+Finding a nice user experience for getting performance tips in Juno was mostly a matter of updating the Atom packages Juno uses.</description>
+    </item>
     
     <item>
       <title>Towards Juno 0.7</title>

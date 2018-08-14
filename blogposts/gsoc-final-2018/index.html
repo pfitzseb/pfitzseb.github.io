@@ -2,7 +2,6 @@
 <html lang="en-us">
 
 <head>
-	<meta name="generator" content="Hugo 0.46" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="chrome=1">
 <meta name="HandheldFriendly" content="True">
@@ -12,7 +11,7 @@
 
 
 
-<meta property="twitter:title" content="EMUlator">
+<meta property="twitter:title" content="GSoC 2018 Summary">
 
     <meta property="twitter:card" content="summary">
 
@@ -21,10 +20,10 @@
 <title>
 
 
-    EMUlator
+     EMUlator - GSoC 2018 Summary 
 
 </title>
-<link rel="canonical" href="https://pfitzseb.github.io/">
+<link rel="canonical" href="https://pfitzseb.github.io/blogposts/gsoc-final-2018/">
 
 
 
@@ -900,8 +899,6 @@ margin-left: -4%;
 
 
 
-  <link href="https://pfitzseb.github.io/index.xml" rel="alternate" type="application/rss+xml" title="EMUlator" />
-
 
 </head>
 
@@ -911,7 +908,7 @@ margin-left: -4%;
 
 
 
-<section class="header header-home">
+<section class="header">
 
     <div class="container">
         <a href="https://pfitzseb.github.io/"><img class="logo" src="https://pfitzseb.github.io/img/emu.svg" alt="logo" /></a>
@@ -951,18 +948,124 @@ margin-left: -4%;
 <section class="main">
     <div class="container">
         <div class="content">
-            
-                <div class="markdown">
-                <p>Hi, I’m Sebastian and this is my favourite… nvm.</p>
+            <div class="page-heading">
 
-                </div>
-            
+    GSoC 2018 Summary
 
-            
+</div>
 
-            <div class="best-posts">
-            
-            
+            <div class="markdown">
+                
+    
+    
+
+<p>The aims of this year&rsquo;s GSoC project were to <em>a)</em> get the <a href="http://junolab.org/">Juno IDE</a> running
+on <a href="https://julialang.org/">Julia</a> v1.0 and <em>b)</em> integrate performance linting into the Juno UI.</p>
+
+<p>Most of the work went into updating the various Julia packages in the <a href="https://github.com/JunoLab">Juno stack</a>, first for Julia 0.7 and then for Julia 1.0. There&rsquo;s also a unfinished
+PR against <a href="https://github.com/MikeInnes"><strong>@MikeInnes</strong></a>&rsquo; excellent package <a href="https://github.com/MikeInnes/Traceur.jl">Traceur.jl</a>, which provides performance linting in Julia.</p>
+
+<p>Finding a nice user experience for getting performance tips in Juno was mostly a matter of updating the Atom packages Juno uses.</p>
+
+<h2 id="juno-on-julia-v1-0">Juno on Julia v1.0</h2>
+
+<p>Updating Juno for Julia 1.0 actually took more time than I would have liked. Then again, Julia itself
+changed radically between 0.6 and 1.0, so I guess that was to be expected. Most of the progress was tracked
+in this <a href="https://github.com/JunoLab/Juno.jl/issues/127">meta-issue</a> (thanks again to everyone who tried
+Juno with Julia 0.7 in that phase!), which culminated in PRs against basically every single package in the
+Juno stack.</p>
+
+<h3 id="atom-jl">Atom.jl</h3>
+
+<p><a href="https://github.com/JunoLab/Atom.jl/pull/122">Atom.jl</a> was not only updated to work on Julia 0.7, but also implements quite a few new features (see an <a href="https://pfitzseb.github.io/blogposts/juno-on-07/">earlier blog post</a> for more information on that).</p>
+
+<p>Juno is now fully compatible with the <a href="https://github.com/pfitzseb/TreeViews.jl">TreeViews.jl</a> API, which
+means that package authors don&rsquo;t have to depend on Juno.jl anymore to get custom pretty printing for their
+own types:
+<figure class="progressive"><img class="progressive__img progressive--not-loaded" data-progressive="https://pfitzseb.github.io/img/Blogposts/gsoc-final-2018/treeviews.png" src="https://pfitzseb.github.io/img/Blogposts/gsoc-final-2018/low/treeviews.png" alt="search" /></p></figure>
+
+<hr />
+
+<p>Juno&rsquo;s Plot Pane is now fully integrated into <code>Base</code>&rsquo;s display system. It is now sufficient to add the
+proper <code>show</code> method for a custom type and it will be properly displayed in Juno. Again, this cuts down
+the number of packages that need to depend on Juno.jl (or even Atom.jl) drastically.
+<figure class="progressive"><img class="progressive__img progressive--not-loaded" data-progressive="https://pfitzseb.github.io/img/Blogposts/gsoc-final-2018/plots.png" src="https://pfitzseb.github.io/img/Blogposts/gsoc-final-2018/low/plots.png" alt="search" /></p></figure>
+
+<hr />
+
+<p>Progress Bars now make use of the new logging infrastructure introduced in Julia 0.7, which means that
+there is hopefully no external package left that needs to depend on the Juno stack.
+<figure class="progressive"><img class="progressive__img progressive--not-loaded" data-progressive="https://pfitzseb.github.io/img/Blogposts/gsoc-final-2018/progress.png" src="https://pfitzseb.github.io/img/Blogposts/gsoc-final-2018/low/progress.png" alt="search" /></p></figure>
+
+<hr />
+
+<p><a href="https://github.com/JunoLab/Juno.jl/pull/144">Juno.jl</a> is now mostly a thin wrapper and as such was only
+updated to provide compatibility with the new version of Atom.jl. <a href="https://github.com/JunoLab/CodeTools.jl/pull/28">CodeTools.jl</a> had to be updated to handle the new
+package loading properly. <a href="https://github.com/JunoLab/Hiccup.jl">Hiccup.jl</a>, <a href="https://github.com/JunoLab/Media.jl">Media.jl</a>, and
+<a href="https://github.com/JunoLab/Hiccup.jl">LNR.jl</a> were also updated for Julia 1.0, but that mostly consisted of fixing deprecation warnings.</p>
+
+<h2 id="performance-linting">Performance Linting</h2>
+
+<p>Most of the UI work in regards to performance linting happened in a <a href="https://github.com/JunoLab/atom-ink/pull/165">merged PR to ink</a> and consists of a list of warnings (bottom of the screen), an inline popup which provides more information, and a new pane element for the results of <code>@code_warntype</code> etc:
+<figure class="progressive"><img class="progressive__img progressive--not-loaded" data-progressive="https://pfitzseb.github.io/img/Blogposts/gsoc-final-2018/linter.png" src="https://pfitzseb.github.io/img/Blogposts/gsoc-final-2018/low/linter.png" alt="search" /></p></figure>
+
+<p>There&rsquo;s also an (as of yet unmerged) branch in julia-client and Atom.jl to enable this functionality and
+handle the communication with Traceur.jl, which provides the all the logic necessary for inspecting
+the IR and generating warnings when suspicious patterns are found (like type instabilities, use of
+global variables and many more).</p>
+
+<p>Unfortunately Traceur.jl depends on ASTInterpreter2.jl and Vinyl.jl, both of which don&rsquo;t work on Julia 1.0
+yet. For that reason I have spent the last week of my GSoC project with transitioning Traceur.jl to use
+<a href="https://github.com/jrevels"><strong>@jrevels</strong></a> awesome <a href="https://github.com/jrevels/Cassette.jl">Cassette.jl</a>,
+which was released during JuliaCon. The relevant <a href="https://github.com/MikeInnes/Traceur.jl/pull/11">PR</a> is
+not merged yet, but that&rsquo;ll hopefully be done soon. At that point we will be able to tag a new Juno release
+with performance linting enabled.</p>
+
+<h2 id="various-improvements">Various Improvements</h2>
+
+<p>While working on updating Juno to Julia 1.0 I also stumbled upon a few other areas to work on:</p>
+
+<ul>
+<li><a href="https://github.com/JunoLab/junolab.github.io/pull/11">Redesign</a> of <a href="http://junolab.org/">junolab.org</a> to better advertise the many of the features Juno provides but no one knows about.</li>
+<li>Plot Pane UX is now much better with regards to multiple plots.</li>
+<li>Juno&rsquo;s Workspace now allows easy filtering of names in the workspace.</li>
+<li><a href="https://github.com/pfitzseb/TreeViews.jl">TreeViews.jl</a> provides a mininmal API for defining a tree-like display for arbitrary types.</li>
+<li><a href="https://github.com/pfitzseb/REPLTreeViews.jl">REPLTreeViews.jl</a> (not registered yet) enables interactive rendering of those tree views in the REPL.</li>
+<li><a href="https://github.com/JunoLab/Atom.jl/pull/125">New autocompletion provider</a> (WIP), which is much more powerful than what we have so far.</li>
+</ul>
+
+<h2 id="upcoming-work">Upcoming Work</h2>
+
+<p>Of course this isn&rsquo;t the end of my involvement with Juno, and we already have a few plans for the future.</p>
+
+<p>During JuliaCon I was talking to <a href="https://github.com/davidanthoff">David Anthoff</a>, one of the two guys
+behind the <a href="https://github.com/JuliaEditorSupport/julia-vscode">Julia integration into VSCode</a>, and we came
+up with a few ideas on how to share more code between the two backends (and come closer to feature parity).
+This will require a complete redesign of Juno&rsquo;s internals, but in the end we&rsquo;ll get quite a few features
+for free. I&rsquo;ll write up my thoughts on this in a future post.</p>
+
+<p>Another big thing a few people (like Mike Innes and Chris Rackauckas) have bugged me about is better
+support for remote work via <code>ssh</code>. This might need to be done in conjunction with the redesign mentioned
+above, but I&rsquo;m not totally sure what the best way forward is here.</p>
+
+<p>Continuing the TreeViews.jl work from during the summer I want to finish the REPLTreeViews.jl renderer
+(which definitely has a few big bugs right now) and implement a Jupyter renderer.</p>
+
+<p>In my last blog post I mentioned a few improvements to Julia&rsquo;s REPL that would be very good to have and
+would benefit everyone, not just Juno users. That&rsquo;s still something I want to spend some time on, but is
+also a bit tedious due to the underdocumented (and definitely not self explanatory) REPL design.</p>
+
+<p><a href="https://github.com/timholy">Tim Holy</a>&rsquo;s <a href="https://github.com/timholy">Revise.jl</a> works great on it&rsquo;s own,
+but can also be used as a library which might make Juno&rsquo;s current core functionality more robust and also
+enable things like method deletion which Juno can&rsquo;t really handle right now (except for re-evaluating the
+whole module).</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>I&rsquo;d like to thank <a href="https://github.com/bmharsha">Harsha</a> and <a href="https://github.com/mikeinnes">Mike</a> for being
+great mentors. Also a big shoutout to the whole Julia community, and especially all organizers of this year&rsquo;s JuliaCon, which was a great experience</p>
+
+
             </div>
         </div>
     </div>
