@@ -6,10 +6,20 @@
     <description>Recent content on EMUlator</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Aug 2018 07:40:56 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 15 Aug 2018 21:44:17 +0200</lastBuildDate>
     
 	<atom:link href="https://pfitzseb.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JuliaCon Poster</title>
+      <link>https://pfitzseb.github.io/blogposts/juliacon-poster/</link>
+      <pubDate>Wed, 15 Aug 2018 21:44:17 +0200</pubDate>
+      
+      <guid>https://pfitzseb.github.io/blogposts/juliacon-poster/</guid>
+      <description>So if anyone wants to take another look at the poster I presented at JuliaCon this year, here it is:
+Thanks again to NumFocus and the JuliaProject for making it possible for me to attend JuliaCon and (finally) meet basically everyone in the Julia community face-to-face!</description>
+    </item>
     
     <item>
       <title>GSoC 2018 Summary</title>
